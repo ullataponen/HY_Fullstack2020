@@ -5,15 +5,15 @@ export default function Addperson({
 	persons,
 	savePerson,
 	setPersons,
-	setMessage
+	setMessage,
 }) {
 	const [newEntry, setNewEntry] = useState({ name: "", number: "" });
 
-	const addPerson = event => {
+	const addPerson = (event) => {
 		event.preventDefault();
-		const personToUpdate = persons.find(p => p.name === newEntry.name);
+		const personToUpdate = persons.find((p) => p.name === newEntry.name);
 		console.log(personToUpdate);
-		if (persons.find(p => p.name === newEntry.name)) {
+		if (persons.find((p) => p.name === newEntry.name)) {
 			const id = personToUpdate.id;
 			if (
 				window.confirm(
@@ -22,17 +22,17 @@ export default function Addperson({
 			) {
 				personService
 					.update(id, newEntry)
-					.then(returnedPerson => {
+					.then((returnedPerson) => {
 						setMessage(
 							`Person '${personToUpdate.name}' was successfully updated.`
 						);
 						setPersons(
-							persons.map(person =>
+							persons.map((person) =>
 								person.id !== id ? person : returnedPerson
 							)
 						);
 					})
-					.catch(error => {
+					.catch((error) => {
 						setMessage(
 							`Error. Person '${personToUpdate.name}' was already removed from server`
 						);
@@ -40,34 +40,43 @@ export default function Addperson({
 				setTimeout(() => {
 					setMessage("");
 				}, 5000);
-				setPersons(persons.filter(p => p.id !== id));
+				setPersons(persons.filter((p) => p.id !== id));
 			}
 		} else {
-			personService.create(newEntry).then(returnedPerson => {
-				savePerson(returnedPerson);
-				setMessage(`Person '${newEntry.name}' was successfully added.`);
-				setTimeout(() => {
-					setMessage("");
-				}, 5000);
-			});
+			personService
+				.create(newEntry)
+				.then((returnedPerson) => {
+					savePerson(returnedPerson);
+					setMessage(`Person '${newEntry.name}' was successfully added.`);
+					setTimeout(() => {
+						setMessage("");
+					}, 5000);
+				})
+				.catch((error) => {
+					let errorMsg = error.response.data.error;
+					setMessage(`Error: ${errorMsg}`);
+					setTimeout(() => {
+						setMessage("");
+					}, 5000);
+				});
 		}
 		setNewEntry({ name: "", number: "" });
 	};
 
-	const handleInputChange = event => {
+	const handleInputChange = (event) => {
 		setNewEntry({ ...newEntry, [event.target.name]: event.target.value });
 	};
 
 	return (
 		<div>
 			<h2>Add new entry</h2>
-			<form onSubmit={event => addPerson(event)}>
+			<form onSubmit={(event) => addPerson(event)}>
 				<div>
 					name:{" "}
 					<input
 						name="name"
 						value={newEntry.name}
-						onChange={event => handleInputChange(event)}
+						onChange={(event) => handleInputChange(event)}
 					/>
 				</div>
 				<div>
@@ -75,7 +84,7 @@ export default function Addperson({
 					<input
 						name="number"
 						value={newEntry.number}
-						onChange={event => handleInputChange(event)}
+						onChange={(event) => handleInputChange(event)}
 					/>
 				</div>
 				<div>
