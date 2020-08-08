@@ -49,12 +49,15 @@ app.get("/api/blogs/:id", (request, response, next) => {
 });
 // end
 
-app.post("/api/blogs", (request, response) => {
+app.post("/api/blogs", (request, response, next) => {
 	const blog = new Blog(request.body);
 
-	blog.save().then((result) => {
-		response.status(201).json(result);
-	});
+	blog
+		.save()
+		.then((result) => {
+			response.status(201).json(result);
+		})
+		.catch((error) => next(error));
 });
 
 // Tekstin poisto
@@ -80,6 +83,8 @@ const errorHandler = (error, request, response, next) => {
 
 	if (error.name === "CastError") {
 		return response.status(400).send({ error: "malformatted id" });
+	} else if (error.name === "ValidationError") {
+		return response.status(400).json({ error: error.message });
 	}
 
 	next(error);

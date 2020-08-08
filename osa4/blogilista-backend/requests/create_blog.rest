@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "How to utilize your good luck in gambling",
-    "author": "Hannu Hanhi",
-    "url": "blogspot.hanhivaara.com/hannuh",
-    "likes": 5324
+    "title": "sss",
+    "author": "af",
+    "url": "www.test.com",
+    "likes": 0
 }
