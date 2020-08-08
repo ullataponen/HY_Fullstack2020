@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "sss",
-    "author": "af",
-    "url": "www.test.com",
+    "title": "How to deal with the idiots around you",
+    "author": "Mikki Hiiri",
+    "url": "www.ankkalinnablog.com/mikkihiiri",
     "likes": 0
 }

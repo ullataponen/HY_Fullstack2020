@@ -7,7 +7,7 @@ blogsRouter.get("/", (request, response) => {
 	});
 });
 
-// Yksittäinen teksti by Ulla
+// Yksittäisen tekstin haku
 blogsRouter.get("/:id", (request, response, next) => {
 	Blog.findById(request.params.id)
 		.then((blog) => {
@@ -41,13 +41,5 @@ blogsRouter.delete("/:id", (request, response, next) => {
 		.catch((error) => next(error));
 });
 // end
-
-//Unknown endpoint
-// const unknownEndpoint = (request, response) => {
-// 	response.status(404).send({ error: "unknown endpoint" });
-// };
-
-// app.use(unknownEndpoint);
-//end
 
 module.exports = blogsRouter;
