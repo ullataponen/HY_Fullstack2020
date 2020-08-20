@@ -1,3 +1,5 @@
+const _ = require("lodash");
+
 const dummy = (blogs) => {
 	return Array.isArray(blogs) ? 1 : 0;
 };
@@ -23,11 +25,23 @@ const favoriteBlog = (blogs) => {
 		(prev, curr) => (prev.likes > curr.likes ? prev : curr),
 		0
 	);
+	delete favorite._id, delete favorite.url, delete favorite.__v;
 	return JSON.stringify(favorite);
+};
+
+const mostBlogs = (blogs) => {
+	blogs = _.groupBy(blogs, "author");
+	// console.log(blogs);
+	let number = _.countBy(blogs, "length");
+	console.log(number);
+	// reduce sen tekee!!!
+	// let blog = blogs["Edsger W. Dijkstra"];
+	// console.log(blog);
 };
 
 module.exports = {
 	dummy,
 	totalLikes,
 	favoriteBlog,
+	mostBlogs,
 };
