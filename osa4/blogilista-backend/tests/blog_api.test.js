@@ -62,11 +62,11 @@ test("a valid blog can be added", async () => {
 	expect(title).toContain("Saving that last penny");
 });
 
-test("when adding a blog, if likes are not input, it will be 0", async () => {
+test("when adding a blog, if number of likes is not input, will be 0", async () => {
 	const newBlog = {
-		title: "Saving that last penny",
-		author: "Roope Ankka",
-		url: "www.rankka.com",
+		title: "On being poor and raising children",
+		author: "Aku Ankka",
+		url: "www.ankkalinnablog.com/aankka",
 	};
 	await api
 		.post("/api/blogs")
@@ -81,7 +81,7 @@ test("when adding a blog, if likes are not input, it will be 0", async () => {
 	expect(latestEntry.likes).toEqual(0);
 });
 
-test("blog without title, author and url is not added", async () => {
+test("blog without title and url is not added", async () => {
 	const newBlog = {
 		likes: 666,
 	};
@@ -119,7 +119,7 @@ test("a blog can be deleted", async () => {
 	expect(title).not.toContain(blogToDelete.title);
 });
 
-test.only("a blog has an id", async () => {
+test("a blog has an id", async () => {
 	const blogsAtStart = await helper.blogsInDb();
 	const id = blogsAtStart.map((b) => b.id);
 	id.forEach((i) => {
