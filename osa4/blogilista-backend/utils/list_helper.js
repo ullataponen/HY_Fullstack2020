@@ -29,11 +29,22 @@ const favoriteBlog = (blogs) => {
 	return JSON.stringify(favorite);
 };
 
-const mostBlogs = (blogs) => {
-	blogs = _.groupBy(blogs, "author");
+const mostLikes = (blogs) => {
+	// blogs = _.groupBy(blogs, "author");
 	// console.log(blogs);
-	let number = _.countBy(blogs, "length");
-	console.log(number);
+	blogs.reduce(
+		({ sums, most }, { likes, author }) => {
+			console.log(most);
+			sums[author] = likes = (sums[author] || 0) + likes;
+			if (likes > most.likes) {
+				most = { author, likes };
+			}
+			return { sums, most };
+		},
+		{ sums: {}, most: { likes: 0 } }
+	);
+	// let number = _.countBy(blogs, "length");
+	// console.log(number);
 	// reduce sen tekee!!!
 	// let blog = blogs["Edsger W. Dijkstra"];
 	// console.log(blog);
@@ -43,5 +54,5 @@ module.exports = {
 	dummy,
 	totalLikes,
 	favoriteBlog,
-	mostBlogs,
+	mostLikes,
 };
