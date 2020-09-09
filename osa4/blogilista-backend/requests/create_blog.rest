@@ -1,9 +1,10 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFobWVkQSIsImlkIjoiNWY1OGJiN2ZmY2QxNjczY2JjMDhkNzIzIiwiaWF0IjoxNTk5NjU1ODUzfQ.9cpuQHhUXeio6wg98IkkS8Dc-X-xVC3n38MuBHZZy24
 
 {
-    "title": "Mondays Suck!",
-    "author": "Garfield",
-    "url": "www.kittykat.com"
+    "title": "Kalifiksi kalisin paikalle",
+    "author": "Ahmed Ahne",
+    "url": "kalifiksi.com"
     
 }
