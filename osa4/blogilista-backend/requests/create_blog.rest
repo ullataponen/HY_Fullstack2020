@@ -2,5 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "author": "Iines Ankka",
+    "title": "Mondays Suck!",
+    "author": "Garfield",
+    "url": "www.kittykat.com"
+    
 }

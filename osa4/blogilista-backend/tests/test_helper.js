@@ -40,13 +40,6 @@ const usersInDb = async () => {
 };
 
 module.exports = {
-	initialNotes,
-	nonExistingId,
-	notesInDb,
-	usersInDb,
-};
-
-module.exports = {
 	initialBlogs,
 	nonExistingId,
 	blogsInDb,
