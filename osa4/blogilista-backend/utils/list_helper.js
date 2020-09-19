@@ -29,6 +29,21 @@ const favoriteBlog = (blogs) => {
 	return JSON.stringify(favorite);
 };
 
+const mostBlogs = (blogs) => {
+	let blogPerAuth = _.countBy(blogs, "author");
+	console.log(blogPerAuth);
+	let countBlogs = _.map(blogPerAuth, (val, auth) => ({
+		author: auth,
+		blogs: val,
+	}));
+	console.log(countBlogs);
+	const most = countBlogs.reduce(
+		(prev, curr) => (prev.blogs > curr.blogs ? prev : curr),
+		0
+	);
+	return JSON.stringify(most);
+};
+
 const mostLikes = (blogs) => {
 	// blogs = _.groupBy(blogs, "author");
 	// console.log(blogs);
@@ -45,7 +60,7 @@ const mostLikes = (blogs) => {
 	);
 	// let number = _.countBy(blogs, "length");
 	// console.log(number);
-	// reduce sen tekee!!!
+	// reduce!!!
 	// let blog = blogs["Edsger W. Dijkstra"];
 	// console.log(blog);
 };
@@ -54,5 +69,6 @@ module.exports = {
 	dummy,
 	totalLikes,
 	favoriteBlog,
+	mostBlogs,
 	mostLikes,
 };
