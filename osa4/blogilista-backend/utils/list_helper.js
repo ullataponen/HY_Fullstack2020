@@ -10,14 +10,6 @@ const totalLikes = (blogs) => {
 		likeArray = blogs.map((blog) => blog.likes);
 	}
 	return likeArray.reduce((sum, val) => sum + val, 0);
-	// if (blogs.length !== 0) {
-	// 	return blogs.reduce((sum, val) => {
-	// 		console.log(sum.likes, val.likes);
-	// 		sum.likes + val.likes;
-	// 	}, 0);
-	// } else {
-	// 	return 0;
-	// }
 };
 
 const favoriteBlog = (blogs) => {
@@ -29,40 +21,43 @@ const favoriteBlog = (blogs) => {
 	return JSON.stringify(favorite);
 };
 
-const mostBlogs = (blogs) => {
-	let blogPerAuth = _.countBy(blogs, "author");
-	console.log(blogPerAuth);
-	let countBlogs = _.map(blogPerAuth, (val, auth) => ({
+const getHighest = (blogs, valueToCheck) => {
+	let ObjToArr = _.map(blogs, (val, auth) => ({
 		author: auth,
-		blogs: val,
+		[valueToCheck]: val,
 	}));
-	console.log(countBlogs);
-	const most = countBlogs.reduce(
-		(prev, curr) => (prev.blogs > curr.blogs ? prev : curr),
+	const most = ObjToArr.reduce(
+		(prev, curr) => (prev[valueToCheck] > curr[valueToCheck] ? prev : curr),
 		0
 	);
 	return JSON.stringify(most);
 };
 
+const mostBlogs = (blogs) => {
+	let blogPerAuth = _.countBy(blogs, "author");
+	// console.log(blogPerAuth);
+	// let countBlogs = _.map(blogPerAuth, (val, auth) => ({
+	// 	author: auth,
+	// 	blogs: val,
+	// }));
+	// console.log(countBlogs);
+	// const most = countBlogs.reduce(
+	// 	(prev, curr) => (prev.blogs > curr.blogs ? prev : curr),
+	// 	0
+	// );
+	// return JSON.stringify(most);
+	return getHighest(blogPerAuth, "blogs");
+};
+
 const mostLikes = (blogs) => {
-	// blogs = _.groupBy(blogs, "author");
-	// console.log(blogs);
-	blogs.reduce(
-		({ sums, most }, { likes, author }) => {
-			console.log(most);
-			sums[author] = likes = (sums[author] || 0) + likes;
-			if (likes > most.likes) {
-				most = { author, likes };
-			}
-			return { sums, most };
-		},
-		{ sums: {}, most: { likes: 0 } }
-	);
-	// let number = _.countBy(blogs, "length");
-	// console.log(number);
-	// reduce!!!
-	// let blog = blogs["Edsger W. Dijkstra"];
-	// console.log(blog);
+	let totalLikes = blogs.reduce((acc, obj) => {
+		acc[obj.author] = acc[obj.author] || 0;
+		acc[obj.author] += obj.likes;
+		return acc;
+	}, {});
+
+	console.log(totalLikes);
+	return getHighest(totalLikes, "likes");
 };
 
 module.exports = {
