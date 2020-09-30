@@ -226,6 +226,53 @@ describe("when there is initially one user at db", () => {
 		const usersAtEnd = await helper.usersInDb();
 		expect(usersAtEnd).toHaveLength(usersAtStart.length);
 	});
+
+	// 4.16 tests
+	test("creation fails with proper statuscode and message if username is too short", async () => {
+		const usersAtStart = await helper.usersInDb();
+
+		const newUser = {
+			username: "rt",
+			name: "Realtime",
+			password: "password",
+		};
+
+		const result = await api
+			.post("/api/users")
+			.send(newUser)
+			.expect(400)
+			.expect("Content-Type", /application\/json/);
+
+		expect(result.body.error).toContain(
+			"User validation failed: username: Path `username` (`" +
+				newUser.username +
+				"`) is shorter than the minimum allowed length (3)."
+		);
+
+		const usersAtEnd = await helper.usersInDb();
+		expect(usersAtEnd).toHaveLength(usersAtStart.length);
+	});
+
+	test("creation fails with proper statuscode and message if password is too short", async () => {
+		const usersAtStart = await helper.usersInDb();
+
+		const newUser = {
+			username: "asterix",
+			name: "Asterix",
+			password: "pw",
+		};
+
+		const result = await api
+			.post("/api/users")
+			.send(newUser)
+			.expect(400)
+			.expect("Content-Type", /application\/json/);
+
+		expect(result.body.error).toContain("password missing or too short");
+
+		const usersAtEnd = await helper.usersInDb();
+		expect(usersAtEnd).toHaveLength(usersAtStart.length);
+	});
 });
 
 afterAll(() => {

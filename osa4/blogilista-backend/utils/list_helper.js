@@ -35,17 +35,6 @@ const getHighest = (blogs, valueToCheck) => {
 
 const mostBlogs = (blogs) => {
 	let blogPerAuth = _.countBy(blogs, "author");
-	// console.log(blogPerAuth);
-	// let countBlogs = _.map(blogPerAuth, (val, auth) => ({
-	// 	author: auth,
-	// 	blogs: val,
-	// }));
-	// console.log(countBlogs);
-	// const most = countBlogs.reduce(
-	// 	(prev, curr) => (prev.blogs > curr.blogs ? prev : curr),
-	// 	0
-	// );
-	// return JSON.stringify(most);
 	return getHighest(blogPerAuth, "blogs");
 };
 
