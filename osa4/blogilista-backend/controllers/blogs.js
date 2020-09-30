@@ -2,6 +2,7 @@ const blogsRouter = require("express").Router();
 const Blog = require("../models/blog");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
+const { usersInDb } = require("../tests/test_helper");
 
 /*
 const getTokenFrom = (request) => {
@@ -59,8 +60,22 @@ blogsRouter.post("/", async (request, response) => {
 });
 
 blogsRouter.delete("/:id", async (request, response) => {
-	await Blog.findByIdAndRemove(request.params.id);
-	response.status(204).end();
+	// 4.21
+	const token = request.token;
+	const decodedToken = jwt.verify(token, process.env.SECRET);
+	if (!token || !decodedToken.id) {
+		return response.status(401).json({ error: "token missing or invalid" });
+	}
+
+	const blog = await Blog.findById(request.params.id);
+	console.log(blog.user.toString());
+	console.log(decodedToken.id);
+	if (blog.user.toString() === decodedToken.id) {
+		await Blog.findByIdAndRemove(blog.id);
+		response.status(204).end();
+	} else {
+		return response.status(401).json({ error: "not authorized to delete" });
+	}
 });
 
 blogsRouter.put("/:id", async (request, response) => {
