@@ -44,8 +44,6 @@ const mostLikes = (blogs) => {
 		acc[obj.author] += obj.likes;
 		return acc;
 	}, {});
-
-	console.log(totalLikes);
 	return getHighest(totalLikes, "likes");
 };
 

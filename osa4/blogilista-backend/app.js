@@ -15,6 +15,8 @@ mongoose
 	.connect(config.MONGODB_URI, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
+		//https://mongoosejs.com/docs/deprecations.html
+		useCreateIndex: true,
 	})
 	.then(() => {
 		logger.info("connected to MongoDB");

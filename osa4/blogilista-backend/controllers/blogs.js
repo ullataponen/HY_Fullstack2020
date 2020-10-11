@@ -68,10 +68,13 @@ blogsRouter.delete("/:id", async (request, response) => {
 	}
 
 	const blog = await Blog.findById(request.params.id);
-	console.log(blog.user.toString());
-	console.log(decodedToken.id);
+	console.log("the blog user", blog.user.toString());
+	console.log("decoded token", decodedToken.id);
 	if (blog.user.toString() === decodedToken.id) {
-		await Blog.findByIdAndRemove(blog.id);
+		//await Blog.findByIdAndRemove(blog.id);
+		// blog.remove();
+		// https://mongoosejs.com/docs/deprecations.html
+		blog.deleteOne(blog);
 		response.status(204).end();
 	} else {
 		return response.status(401).json({ error: "not authorized to delete" });
