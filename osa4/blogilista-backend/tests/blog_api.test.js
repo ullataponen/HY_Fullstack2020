@@ -30,7 +30,6 @@ describe("when initial blogs exist", () => {
 			.expect("Content-Type", /application\/json/);
 
 		loginUser = result.body;
-		//	console.log("loginUser, ", loginUser);
 	});
 
 	test("blogs are returned as json", async () => {
@@ -165,38 +164,10 @@ describe("when initial blogs exist", () => {
 		});
 	});
 
-	// describe("deletion of a blog", () => {
-	// 	test("succeeds with status code 204 if id is valid", async () => {
-	// 		const blogsAtStart = await helper.blogsInDb();
-	// 		const blogToDelete = blogsAtStart[0];
-
-	// 		console.log(blogToDelete);
-	// 		console.log(loginUser.token);
-
-	// 		await api
-	// 			.delete(`/api/blogs/${blogToDelete.id}`)
-	// 			.set({ Authorization: `Bearer ${loginUser.token}` })
-	// 			.expect(204);
-
-	// 		const blogsAtEnd = await helper.blogsInDb();
-	// 		expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length - 1);
-
-	// 		const title = blogsAtEnd.map((b) => b.title);
-	// 		expect(title).not.toContain(blogToDelete.title);
-	// 	});
-
-	// 	// test("fails with status code 400 if id is invalid", async () => {
-	// 	// 	const invalidId = "5f2da18138c1063878e8f76";
-
-	// 	// 	await api.delete(`/api/blogs/${invalidId}`).expect(400);
-	// 	// });
-	// });
-
 	describe("modification of a blog", () => {
 		test("succeeds with valid data", async () => {
 			const blogsAtStart = await helper.blogsInDb();
 			const blogToModify = blogsAtStart[blogsAtStart.length - 1];
-			//console.log(blogToModify);
 
 			await api
 				.put(`/api/blogs/${blogToModify.id}`)
