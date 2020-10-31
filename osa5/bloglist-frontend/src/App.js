@@ -7,7 +7,7 @@ import loginService from "./services/login";
 
 const App = () => {
 	const [blogs, setBlogs] = useState([]);
-	const [errorMessage, setErrorMessage] = useState(null);
+	const [message, setMessage] = useState(null);
 	const [username, setUsername] = useState([]);
 	const [password, setPassword] = useState([]);
 	const [user, setUser] = useState(null);
@@ -43,18 +43,33 @@ const App = () => {
 			setUser(user);
 			setUsername("");
 			setPassword("");
-		} catch (exception) {
-			setErrorMessage("Wrong username or password");
+			setMessage("Successfully logged in");
 			setTimeout(() => {
-				setErrorMessage(null);
+				setMessage(null);
+			}, 5000);
+		} catch (exception) {
+			setMessage("Wrong username or password");
+			setTimeout(() => {
+				setMessage(null);
 			}, 5000);
 		}
 	};
 
 	const handleLogout = () => {
-		window.localStorage.clear();
-		setUser(null);
-		blogService.setToken(null);
+		try {
+			window.localStorage.clear();
+			setUser(null);
+			blogService.setToken(null);
+			setMessage("Successfully logged out");
+			setTimeout(() => {
+				setMessage(null);
+			}, 5000);
+		} catch {
+			setMessage("Error. Could not log out.");
+			setTimeout(() => {
+				setMessage(null);
+			}, 5000);
+		}
 	};
 
 	// const handleBlogChange = (event) => {
@@ -65,15 +80,29 @@ const App = () => {
 	const addBlog = (newBlog) => {
 		// event.preventDefault();
 
-		blogService.create(newBlog).then((returnedBlog) => {
-			setBlogs(blogs.concat(returnedBlog));
-			// setNewBlog({ title: "", author: "", url: "" });
-		});
+		try {
+			blogService.create(newBlog).then((returnedBlog) => {
+				setBlogs(blogs.concat(returnedBlog));
+				// setNewBlog({ title: "", author: "", url: "" });
+				setMessage(
+					`Successfully added a new blog ${newBlog.title} by ${newBlog.author}`
+				);
+				setTimeout(() => {
+					setMessage(null);
+				}, 5000);
+			});
+		} catch (exception) {
+			setMessage("Error. Could not save blog.");
+			setTimeout(() => {
+				setMessage(null);
+			}, 5000);
+		}
 	};
 
 	const loginForm = () => (
 		<div>
 			<h2>Log in to application</h2>
+
 			<form onSubmit={handleLogin}>
 				<div>
 					username
@@ -132,7 +161,7 @@ const App = () => {
 
 	return (
 		<div>
-			<Notification message={errorMessage} />
+			<Notification message={message} />
 			{user === null ? (
 				loginForm()
 			) : (

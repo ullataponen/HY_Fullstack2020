@@ -1,0 +1,23 @@
+body {
+	font-family: "Arial", sans-serif;
+}
+
+.error {
+	color: firebrick;
+	background-color: lightsalmon;
+	padding: 10px;
+	margin: 20px auto 20px 0;
+	width: fit-content;
+	border: 2px solid firebrick;
+	border-radius: 10px;
+}
+
+.success {
+	color: green;
+	background-color: greenyellow;
+	padding: 10px;
+	margin: 20px auto 20px 0;
+	width: fit-content;
+	border: 2px solid green;
+	border-radius: 10px;
+}
