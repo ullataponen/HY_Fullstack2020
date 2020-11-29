@@ -22,7 +22,7 @@ const BlogForm = (props) => {
   };
 
   return (
-    <div>
+    <>
       <h2>Create new</h2>
       <form onSubmit={addBlog}>
         <label htmlFor="title">Title</label>
@@ -40,7 +40,7 @@ const BlogForm = (props) => {
         <br />
         <button type="submit">Submit</button>
       </form>
-    </div>
+    </>
   );
 };
 

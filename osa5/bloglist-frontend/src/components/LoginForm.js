@@ -11,7 +11,7 @@ const LoginForm = ({ handleLoginSubmit }) => {
     setPassword("");
   };
   return (
-    <div>
+    <>
       <h2>Login</h2>
 
       <form onSubmit={handleLogin}>
@@ -35,7 +35,7 @@ const LoginForm = ({ handleLoginSubmit }) => {
         </div>
         <button type="submit">Login</button>
       </form>
-    </div>
+    </>
   );
 };
 export default LoginForm;
