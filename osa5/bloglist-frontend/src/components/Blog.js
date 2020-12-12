@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import Togglable from "./Togglable";
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, updateBlog }) => {
+  let blogToUpdate = blog;
+
   const blogStyle = {
     padding: 10,
     marginTop: 10,
@@ -9,7 +11,11 @@ const Blog = ({ blog }) => {
     border: "solid",
     borderRadius: 10,
     borderWidth: 1,
-    marginBottom: 5,
+  };
+
+  const handleLikeIncrement = () => {
+    blogToUpdate.likes++;
+    updateBlog(blogToUpdate);
   };
 
   return (
@@ -20,8 +26,8 @@ const Blog = ({ blog }) => {
       <Togglable buttonLabel="View details" cancelLabel="Hide details">
         <p>{blog.url}</p>
         <p>
-          {blog.likes} likes
-          <button>Like</button>{" "}
+          {blog.likes === null ? 0 : blog.likes} likes
+          <button onClick={handleLikeIncrement}>Like</button>
         </p>
         {blog.user ? <p>{blog.user.name}</p> : <></>}
       </Togglable>

@@ -84,6 +84,24 @@ const App = () => {
     }
   };
 
+  const updateBlog = (updatedBlog) => {
+    try {
+      blogService.update(updatedBlog, updatedBlog.id).then((returnedBlog) => {
+        setMessage(
+          `Successfully updated blog ${returnedBlog.title} by ${returnedBlog.author}`
+        );
+        setTimeout(() => {
+          setMessage(null);
+        }, 5000);
+      });
+    } catch (exception) {
+      setMessage("Error. Could not update blog.");
+      setTimeout(() => {
+        setMessage(null);
+      }, 5000);
+    }
+  };
+
   const loginForm = () => (
     <div>
       <LoginForm handleLoginSubmit={handleLogin} />
@@ -101,7 +119,7 @@ const App = () => {
       <h2>Blogs</h2>
 
       {blogs.map((blog) => (
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
       ))}
     </div>
   );
