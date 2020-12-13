@@ -26,3 +26,17 @@ button {
   display: inline-block;
   margin: 10px;
 }
+
+.del-btn {
+  margin-left: 0;
+  background-color: red;
+  color: #fff;
+  border: 1px solid transparent;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+.del-btn:hover {
+  background-color: #fff;
+  color: red;
+  border: 1px solid red;
+}

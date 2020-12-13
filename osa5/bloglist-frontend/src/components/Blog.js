@@ -1,7 +1,7 @@
 import React from "react";
 import Togglable from "./Togglable";
 
-const Blog = ({ blog, updateBlog }) => {
+const Blog = ({ blog, updateBlog, deleteBlog, user }) => {
   let blogToUpdate = blog;
 
   const blogStyle = {
@@ -18,6 +18,10 @@ const Blog = ({ blog, updateBlog }) => {
     updateBlog(blogToUpdate);
   };
 
+  const handleDelete = () => {
+    deleteBlog(blog);
+  };
+
   return (
     <div style={blogStyle}>
       <span>
@@ -29,7 +33,15 @@ const Blog = ({ blog, updateBlog }) => {
           {blog.likes === null ? 0 : blog.likes} likes
           <button onClick={handleLikeIncrement}>Like</button>
         </p>
-        {blog.user ? <p>{blog.user.name}</p> : <></>}
+        <p>{blog.user.name}</p>
+
+        {blog.user.id === user.id ? (
+          <button onClick={handleDelete} className="del-btn">
+            Delete entry
+          </button>
+        ) : (
+          <></>
+        )}
       </Togglable>
     </div>
   );

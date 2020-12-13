@@ -102,6 +102,21 @@ const App = () => {
     }
   };
 
+  const deleteBlog = (blog) => {
+    if (window.confirm(`Are you sure to delete blog ${blog.name}?`)) {
+      try {
+        blogService.remove(blog.id).then((response) => {
+          blogService.getAll().then((returnedBlogs) => {
+            setBlogs(returnedBlogs);
+            setMessage(`Blog '${blog.title}' was successfully deleted.`);
+          });
+        });
+      } catch (error) {
+        setMessage(`Error. Blog '${blog.title}' could not be deleted.`);
+      }
+    }
+  };
+
   const loginForm = () => (
     <div>
       <LoginForm handleLoginSubmit={handleLogin} />
@@ -121,7 +136,13 @@ const App = () => {
       {blogs
         .sort((curr, prev) => prev.likes - curr.likes)
         .map((blog) => (
-          <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
+          <Blog
+            key={blog.id}
+            blog={blog}
+            updateBlog={updateBlog}
+            deleteBlog={deleteBlog}
+            user={user}
+          />
         ))}
     </div>
   );
