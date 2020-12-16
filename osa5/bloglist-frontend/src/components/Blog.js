@@ -1,5 +1,6 @@
 import React from "react";
 import Togglable from "./Togglable";
+import PropTypes from "prop-types";
 
 const Blog = ({ blog, updateBlog, deleteBlog, user }) => {
   let blogToUpdate = blog;
@@ -45,6 +46,19 @@ const Blog = ({ blog, updateBlog, deleteBlog, user }) => {
       </Togglable>
     </div>
   );
+};
+
+Blog.propTypes = {
+  blog: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    url: PropTypes.string,
+    likes: PropTypes.number.isRequired,
+    user: PropTypes.object.isRequired,
+  }),
+  updateBlog: PropTypes.func.isRequired,
+  deleteBlog: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export default Blog;

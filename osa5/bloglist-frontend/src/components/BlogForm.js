@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 const BlogForm = (props) => {
   const [newBlog, setNewBlog] = useState({
@@ -42,6 +43,11 @@ const BlogForm = (props) => {
       </form>
     </>
   );
+};
+
+BlogForm.propTypes = {
+  handleBlogChange: PropTypes.func,
+  addBlog: PropTypes.func,
 };
 
 export default BlogForm;

@@ -6,6 +6,7 @@ import blogService from "./services/blogs";
 import loginService from "./services/login";
 import LoginForm from "./components/LoginForm";
 import Togglable from "./components/Togglable";
+import PropTypes from "prop-types";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -164,4 +165,14 @@ const App = () => {
   );
 };
 
+App.propTypes = {
+  blogs: PropTypes.array,
+  user: PropTypes.object,
+  handleLogin: PropTypes.func,
+  handleLogout: PropTypes.func,
+  addBlog: PropTypes.func,
+  updateBlog: PropTypes.func,
+  deleteBlog: PropTypes.func,
+  blogList: PropTypes.func,
+};
 export default App;
