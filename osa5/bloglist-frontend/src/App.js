@@ -57,7 +57,7 @@ const App = () => {
       setTimeout(() => {
         setMessage(null);
       }, 5000);
-    } catch {
+    } catch (error) {
       setMessage("Error. Could not log out.");
       setTimeout(() => {
         setMessage(null);
@@ -106,7 +106,7 @@ const App = () => {
   const deleteBlog = (blog) => {
     if (window.confirm(`Are you sure to delete blog ${blog.name}?`)) {
       try {
-        blogService.remove(blog.id).then((response) => {
+        blogService.remove(blog.id).then(() => {
           blogService.getAll().then((returnedBlogs) => {
             setBlogs(returnedBlogs);
             setMessage(`Blog '${blog.title}' was successfully deleted.`);

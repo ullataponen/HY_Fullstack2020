@@ -3,7 +3,7 @@ import Togglable from "./Togglable";
 import PropTypes from "prop-types";
 
 const Blog = ({ blog, updateBlog, deleteBlog, user }) => {
-  let blogToUpdate = blog;
+  const blogToUpdate = blog;
 
   const blogStyle = {
     padding: 10,
