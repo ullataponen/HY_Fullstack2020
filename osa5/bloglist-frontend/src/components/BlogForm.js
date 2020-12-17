@@ -27,17 +27,28 @@ const BlogForm = (props) => {
       <h2>Create new</h2>
       <form onSubmit={addBlog}>
         <label htmlFor="title">Title</label>
-        <input name="title" value={newBlog.title} onChange={handleBlogChange} />
+        <input
+          id="title"
+          name="title"
+          value={newBlog.title}
+          onChange={handleBlogChange}
+        />
         <br />
         <label htmlFor="author">Author</label>
         <input
+          id="author"
           name="author"
           value={newBlog.author}
           onChange={handleBlogChange}
         />
         <br />
         <label htmlFor="url">URL</label>
-        <input name="url" value={newBlog.url} onChange={handleBlogChange} />
+        <input
+          id="url"
+          name="url"
+          value={newBlog.url}
+          onChange={handleBlogChange}
+        />
         <br />
         <button type="submit">Submit</button>
       </form>
