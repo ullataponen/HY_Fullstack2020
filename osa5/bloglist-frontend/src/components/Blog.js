@@ -24,8 +24,8 @@ const Blog = ({ blog, updateBlog, deleteBlog, user }) => {
   };
 
   return (
-    <div style={blogStyle}>
-      <span>
+    <div style={blogStyle} className="blog">
+      <span className="blogTitleAuthor">
         {blog.title} {blog.author}
       </span>
       <Togglable buttonLabel="View details" cancelLabel="Hide details">
@@ -53,11 +53,11 @@ Blog.propTypes = {
     title: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
     url: PropTypes.string,
-    likes: PropTypes.number.isRequired,
+    likes: PropTypes.number,
     user: PropTypes.object.isRequired,
   }),
-  updateBlog: PropTypes.func.isRequired,
-  deleteBlog: PropTypes.func.isRequired,
+  updateBlog: PropTypes.func,
+  deleteBlog: PropTypes.func,
   user: PropTypes.object.isRequired,
 };
 
