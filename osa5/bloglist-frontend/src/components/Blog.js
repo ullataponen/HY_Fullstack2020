@@ -34,7 +34,7 @@ const Blog = ({ blog, updateBlog, deleteBlog, user }) => {
           {blog.likes === null ? 0 : blog.likes} likes
           <button onClick={handleLikeIncrement}>Like</button>
         </p>
-        <p>{blog.user.name}</p>
+        {blog.user ? <p>{blog.user.name}</p> : <></>}
 
         {blog.user.id === user.id ? (
           <button onClick={handleDelete} className="del-btn">
