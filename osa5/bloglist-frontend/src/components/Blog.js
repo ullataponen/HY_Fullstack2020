@@ -30,9 +30,11 @@ const Blog = ({ blog, updateBlog, deleteBlog, user }) => {
       </span>
       <Togglable buttonLabel="View details" cancelLabel="Hide details">
         <p>{blog.url}</p>
-        <p>
+        <p id="likes">
           {blog.likes === null ? 0 : blog.likes} likes
-          <button onClick={handleLikeIncrement}>Like</button>
+          <button id="like-button" onClick={handleLikeIncrement}>
+            Like
+          </button>
         </p>
         {blog.user ? <p>{blog.user.name}</p> : <></>}
 
