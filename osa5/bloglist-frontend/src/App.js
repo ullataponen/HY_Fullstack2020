@@ -131,7 +131,7 @@ const App = () => {
   );
 
   const blogList = () => (
-    <div>
+    <div class="blogs">
       <h2>Blogs</h2>
 
       {blogs

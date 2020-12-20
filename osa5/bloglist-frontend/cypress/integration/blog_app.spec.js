@@ -41,7 +41,7 @@ describe("Blog app", function () {
     });
   });
 
-  describe("When logged in", function () {
+  describe.only("When logged in", function () {
     beforeEach(function () {
       cy.login({ username: "mikki", password: "hiiri" });
     });
@@ -73,6 +73,7 @@ describe("Blog app", function () {
           url: "fullstackopen.com",
         });
       });
+
       it("one blog can be liked", function () {
         cy.contains("Second blog").parent().contains("View details").click();
 
@@ -83,6 +84,35 @@ describe("Blog app", function () {
           .find("#like-button")
           .click();
         cy.get("@likeView").should("contain", "1 likes");
+      });
+
+      it("a blog can be deleted by its creator", function () {
+        cy.contains("Third blog").parent().contains("View details").click();
+        cy.contains("Third blog")
+          .siblings(".togglableContent")
+          .find(".del-btn")
+          .click();
+
+        cy.get(".blogs").should("not.contain", "Mikki Hiiri");
+      });
+
+      it("a blog cannot be deleted by other users", function () {
+        cy.contains("Log out").click();
+
+        const user = {
+          name: "Minni Hiiri",
+          username: "minni",
+          password: "mhiiri",
+        };
+        cy.request("POST", "http://localhost:3001/api/users/", user);
+        cy.visit("http://localhost:3000");
+        cy.login({ username: "minni", password: "mhiiri" });
+
+        cy.contains("First blog").parent().contains("View details").click();
+        cy.contains("First blog")
+          .siblings(".togglableContent")
+          .children()
+          .should("not.contain", ".del-btn");
       });
     });
   });
