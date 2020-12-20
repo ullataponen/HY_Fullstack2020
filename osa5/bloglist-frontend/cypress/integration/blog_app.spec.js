@@ -41,7 +41,7 @@ describe("Blog app", function () {
     });
   });
 
-  describe.only("When logged in", function () {
+  describe("When logged in", function () {
     beforeEach(function () {
       cy.login({ username: "mikki", password: "hiiri" });
     });
@@ -79,9 +79,9 @@ describe("Blog app", function () {
 
         cy.contains("Second blog")
           .siblings(".togglableContent")
-          .find("#likes")
+          .find(".likes")
           .as("likeView")
-          .find("#like-button")
+          .find(".like-button")
           .click();
         cy.get("@likeView").should("contain", "1 likes");
       });
@@ -113,6 +113,31 @@ describe("Blog app", function () {
           .siblings(".togglableContent")
           .children()
           .should("not.contain", ".del-btn");
+      });
+
+      it("the blogs are in descending order by the number of likes", function () {
+        cy.get(".blogs>div").each(() => {
+          cy.contains("View details").click();
+        });
+        cy.contains("Second blog")
+          .siblings(".togglableContent")
+          .find(".likes")
+          .find(".like-button")
+          .click()
+          .click();
+
+        cy.contains("Third blog")
+          .siblings(".togglableContent")
+          .find(".likes")
+          .find(".like-button")
+          .click();
+        cy.get(".blog>.togglableContent>.likes").then(($likes) => {
+          for (let i = 1; i < $likes.length; i++) {
+            expect(parseInt($likes[i - 1].innerText.charAt(0))).to.be.at.least(
+              parseInt($likes[i].innerText.charAt(0))
+            );
+          }
+        });
       });
     });
   });

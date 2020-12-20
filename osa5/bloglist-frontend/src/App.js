@@ -104,16 +104,27 @@ const App = () => {
   };
 
   const deleteBlog = (blog) => {
-    if (window.confirm(`Are you sure to delete blog ${blog.name}?`)) {
+    if (
+      window.confirm(
+        `Are you sure to delete blog ${blog.title} by ${blog.author}?`
+      )
+    ) {
       try {
         blogService.remove(blog.id).then(() => {
           blogService.getAll().then((returnedBlogs) => {
             setBlogs(returnedBlogs);
+
             setMessage(`Blog '${blog.title}' was successfully deleted.`);
+            setTimeout(() => {
+              setMessage(null);
+            }, 5000);
           });
         });
       } catch (error) {
         setMessage(`Error. Blog '${blog.title}' could not be deleted.`);
+        setTimeout(() => {
+          setMessage(null);
+        }, 5000);
       }
     }
   };
@@ -131,7 +142,7 @@ const App = () => {
   );
 
   const blogList = () => (
-    <div class="blogs">
+    <div className="blogs">
       <h2>Blogs</h2>
 
       {blogs
