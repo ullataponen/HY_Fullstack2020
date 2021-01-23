@@ -17,16 +17,24 @@ const asObject = (anecdote) => {
   };
 };
 
+export const giveVote = (id) => {
+  return { type: "VOTE", data: { id } };
+};
+
+export const createAnecdote = (content) => {
+  return {
+    type: "NEW_ANECDOTE",
+    data: { content },
+  };
+};
+
 const initialState = anecdotesAtStart.map(asObject);
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "VOTE":
-      // console.log("state now: ", state);
-      // console.log("action", action);
       const id = action.data.id;
       const voteObj = state.find((item) => item.id === id);
-      // console.log(voteObj);
       const newObj = { ...voteObj, votes: voteObj.votes + 1 };
       console.log("state now: ", state);
       return state.map((item) => (item.id !== id ? item : newObj));
