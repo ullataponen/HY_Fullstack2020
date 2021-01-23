@@ -36,7 +36,6 @@ const reducer = (state = initialState, action) => {
       const id = action.data.id;
       const voteObj = state.find((item) => item.id === id);
       const newObj = { ...voteObj, votes: voteObj.votes + 1 };
-      console.log("state now: ", state);
       return state.map((item) => (item.id !== id ? item : newObj));
     case "NEW_ANECDOTE":
       const anecdote = asObject(action.data.content);
