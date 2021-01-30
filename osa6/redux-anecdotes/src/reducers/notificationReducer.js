@@ -1,19 +1,29 @@
-const initialState = "Nothing to note";
+const initialState = "";
 
 const notificationReducer = (state = initialState, action) => {
   console.log(action.notification);
   switch (action.type) {
-    case "SEND_NOTIFICATION":
+    case "SET_NOTIFICATION":
       return action.notification;
+    case "UNSET_NOTIFICATION":
+      action.notification = "";
+      return action.notification;
+
     default:
       return state;
   }
 };
 
-export const sendNotification = (notification) => {
+export const setNotification = (notification) => {
   return {
-    type: "SEND_NOTIFICATION",
+    type: "SET_NOTIFICATION",
     notification,
+  };
+};
+
+export const unsetNotification = () => {
+  return {
+    type: "UNSET_NOTIFICATION",
   };
 };
 
