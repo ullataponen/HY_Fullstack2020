@@ -3,10 +3,8 @@ import Filter from "./components/Filter";
 import Notification from "./components/Notification";
 import AnecdoteList from "./components/AnecdoteList";
 import AnecdoteForm from "./components/AnecdoteForm";
-import anecdoteService from "./services/anecdotes";
 import { initializeAnecdotes } from "./reducers/anecdoteReducer";
 import { useDispatch } from "react-redux";
-import anecdotes from "./services/anecdotes";
 
 const App = () => {
   const dispatch = useDispatch();
