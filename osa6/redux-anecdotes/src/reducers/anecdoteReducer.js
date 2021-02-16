@@ -17,6 +17,26 @@ const asObject = (anecdote) => {
   };
 };
 
+const initialState = anecdotesAtStart.map(asObject);
+
+const anecdoteReducer = (state = [], action) => {
+  console.log(action.type);
+  switch (action.type) {
+    case "VOTE":
+      const id = action.data.id;
+      const voteObj = state.find((item) => item.id === id);
+      const newObj = { ...voteObj, votes: voteObj.votes + 1 };
+      return state.map((item) => (item.id !== id ? item : newObj));
+    case "NEW_ANECDOTE":
+      const anecdote = asObject(action.data.content);
+      return [...state, anecdote];
+    case "INIT_ANECDOTES":
+      return action.data;
+    default:
+      return state;
+  }
+};
+
 export const giveVote = (id) => {
   return { type: "VOTE", data: { id } };
 };
@@ -28,22 +48,11 @@ export const createAnecdote = (content) => {
   };
 };
 
-const initialState = anecdotesAtStart.map(asObject);
-
-const anecdoteReducer = (state = initialState, action) => {
-  console.log(action.type);
-  switch (action.type) {
-    case "VOTE":
-      const id = action.data.id;
-      const voteObj = state.find((item) => item.id === id);
-      const newObj = { ...voteObj, votes: voteObj.votes + 1 };
-      return state.map((item) => (item.id !== id ? item : newObj));
-    case "NEW_ANECDOTE":
-      const anecdote = asObject(action.data.content);
-      return [...state, anecdote];
-    default:
-      return state;
-  }
+export const initializeAnecdotes = (anecdotes) => {
+  return {
+    type: "INIT_ANECDOTES",
+    data: anecdotes,
+  };
 };
 
 export default anecdoteReducer;
