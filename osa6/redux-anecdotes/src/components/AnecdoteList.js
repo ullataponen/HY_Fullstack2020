@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { giveVote } from "../reducers/anecdoteReducer";
 import {
   setNotification,
-  unsetNotification,
+  // unsetNotification,
 } from "../reducers/notificationReducer";
 
 const Anecdote = ({ anecdote, handleClick }) => {
@@ -32,8 +32,11 @@ const Anecdotes = () => {
   const handleVote = async (anecdote) => {
     anecdote = { ...anecdote, votes: anecdote.votes + 1 };
     dispatch(giveVote(anecdote));
-    dispatch(setNotification(`You voted for anecdote "${anecdote.content}"`));
-    setTimeout(() => dispatch(unsetNotification()), 5000);
+    dispatch(
+      setNotification(`You voted for anecdote "${anecdote.content}"`, 5)
+    );
+    // dispatch(setNotification(`You voted for anecdote "${anecdote.content}"`));
+    // setTimeout(() => dispatch(unsetNotification()), 5000);
   };
 
   return (

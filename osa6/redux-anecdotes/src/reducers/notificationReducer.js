@@ -7,6 +7,7 @@ const notificationReducer = (state = initialState, action) => {
       return action.notification;
     case "UNSET_NOTIFICATION":
       action.notification = "";
+
       return action.notification;
 
     default:
@@ -14,13 +15,15 @@ const notificationReducer = (state = initialState, action) => {
   }
 };
 
-export const setNotification = (notification) => {
-  return {
-    type: "SET_NOTIFICATION",
-    notification,
+export const setNotification = (notification, seconds) => {
+  return async (dispatch) => {
+    dispatch({
+      type: "SET_NOTIFICATION",
+      notification,
+    });
+    setTimeout(() => dispatch(unsetNotification()), seconds * 1000);
   };
 };
-
 export const unsetNotification = () => {
   return {
     type: "UNSET_NOTIFICATION",
