@@ -32,7 +32,7 @@
     },
     {
       "content": "New anecdote on server",
-      "votes": 8,
+      "votes": 9,
       "id": "Br7cqyg"
     },
     {
@@ -44,6 +44,11 @@
       "content": "Programming is just elaborate googling",
       "votes": 11,
       "id": "u2OzVWr"
+    },
+    {
+      "content": "anaconda i mean anecdote",
+      "votes": 2,
+      "id": "xiaXlHZ"
     }
   ]
 }
