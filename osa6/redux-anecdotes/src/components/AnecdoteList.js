@@ -17,12 +17,11 @@ const Anecdote = ({ anecdote, handleClick }) => {
 };
 
 const Anecdotes = (props) => {
+  console.log(props);
   const handleVote = async (anecdote) => {
     anecdote = { ...anecdote, votes: anecdote.votes + 1 };
     props.giveVote(anecdote);
     props.setNotification(`You voted for anecdote "${anecdote.content}"`, 5);
-    // dispatch(setNotification(`You voted for anecdote "${anecdote.content}"`));
-    // setTimeout(() => dispatch(unsetNotification()), 5000);
   };
 
   return (
@@ -41,10 +40,13 @@ const Anecdotes = (props) => {
 };
 
 const mapStateToProps = (state) => {
+  console.log(state);
   if (state.filter) {
-    return state.anecdotes.filter((anecdote) =>
-      anecdote.content.toLowerCase().includes(state.filter)
-    );
+    return {
+      anecdotes: state.anecdotes.filter((anecdote) =>
+        anecdote.content.toLowerCase().includes(state.filter)
+      ),
+    };
   }
   return {
     anecdotes: state.anecdotes,
