@@ -1,7 +1,6 @@
 const initialState = "";
 
 const notificationReducer = (state = initialState, action) => {
-  console.log(action.notification);
   switch (action.type) {
     case "SET_NOTIFICATION":
       return action.notification;
@@ -15,13 +14,22 @@ const notificationReducer = (state = initialState, action) => {
   }
 };
 
+let clearNotification;
+
 export const setNotification = (notification, seconds) => {
   return async (dispatch) => {
+    if (clearNotification) {
+      clearTimeout(clearNotification);
+      clearNotification = null;
+    }
+    clearNotification = setTimeout(
+      () => dispatch(unsetNotification()),
+      seconds * 1000
+    );
     dispatch({
       type: "SET_NOTIFICATION",
       notification,
     });
-    setTimeout(() => dispatch(unsetNotification()), seconds * 1000);
   };
 };
 export const unsetNotification = () => {
